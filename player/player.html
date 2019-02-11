@@ -1,0 +1,225 @@
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.4/shaka-player.compiled.js"></script>
+<video id="video"
+        height=640
+
+         poster="//shaka-player-demo.appspot.com/assets/poster.jpg"
+         controls>
+ <track label="English" kind="subtitles" id="myImg" srclang="en" src="http://localhost/movie.vtt" default>
+
+     </video>
+
+<button onclick="jump(60)"> Jump to 60</button>
+<button onclick="jump(0)"> Jump to 0</button>
+<button onclick="resolution(1080)"> 1080p</button>
+<button onclick="resolution(576)"> 144p</button>
+
+<button onclick="information()">information</button>
+<button onclick="play()">play</button>
+<button onclick="pause()">pause</button>
+
+<button onclick="next()">next</button>
+
+
+<script>
+ // var manifestUri = 'https://cdn.cloud.altbalaji.com/content/2018-06/4564-5b3631b112a93/manifest.mpd';
+    var manifestUri = 'https://cdn.cloud.altbalaji.com/content/2018-06/4539-5b29099348f8b/manifest.m3u8';
+  // var manifestUri = 'https://storage.googleapis.com/lao-permanent_content/2018-04-20-13-40-31/Manifest.mpd'
+   var video = document.getElementById('video');
+
+   function play() {
+
+    video.play();
+   }
+   function pause() {
+       video.pause();
+
+   }
+   function next() {
+       manifestUri = 'https://cdn.cloud.altbalaji.com/content/2017-04/2112-58f0d559d77bd/manifest.mpd';
+       player.load(manifestUri).then(function() {
+         console.log('The video has now been loaded!');
+         window.player = player;
+     },(error) => {});
+   }
+
+
+    video.addEventListener('play', ()=> {
+        console.log("play");
+    });
+
+    video.addEventListener('loadeddata', ()=> {
+        console.log("loadeddata");
+    });
+
+    video.addEventListener('loadstart', ()=> {
+        console.log("loadstart");
+    });
+
+
+    video.addEventListener('playing', ()=> {
+        console.log("playing");
+    });
+
+    video.addEventListener('waiting', ()=> {
+        console.log("waiting");
+    });
+
+function information() {
+    var player = window.player;
+
+  console.log("player.getVariantTracks():",player.getVariantTracks());
+
+  var video = document.getElementById('video');
+  console.log("track",player.getTextTracks);
+  console.log("getTracks()",player.getTracks())
+
+
+}
+function jump(to){
+	var video = document.getElementById('video');
+    video.currentTime = to;
+}
+
+function resolution(height){
+    document.getElementById("myImg").src  = 'http://localhost/a.vtt';
+    var player = window.player
+    var tracks = player.getVariantTracks()
+
+    track = tracks.find(function(x){
+
+        if(x.height === height){
+            return x;
+        }
+    });
+    console.log("track",track);
+    // player.selectVariantTrack(track, true);
+    player.selectTrack(track, true);
+    //player.addTextTrack('http://localhost/movie.vtt','en','text','text/vtt');
+
+    // player.selectAudioLanguage('hi',true);
+}
+
+window.resolution = resolution;
+window.jump = jump;
+
+function initApp() {
+  shaka.polyfill.installAll();
+  initPlayer();
+}
+
+function initPlayer() {
+  var video = document.getElementById('video');
+  var player = new shaka.Player(video);
+  window.player = player;
+  player.addEventListener('error', onErrorEvent);
+  player.addEventListener('adaptation', onTrackChanged);
+
+  // DRM Player______________________________________________________
+
+        var licenseUrl = window.licenseUrl = 'https://api.cloud.altbalaji.com//player/drm/widevine-modular';
+        var drmTicket = window.drmTicket = 'd48b85c2-9a12-488e-bb38-a9a985eee1fc';
+
+        player.configure({
+          drm: {
+            servers: {
+              'com.widevine.alpha' : licenseUrl
+            },
+            advanced: {
+              'com.widevine.alpha': {
+                'videoRobustness': 'SW_SECURE_CRYPTO',
+                'audioRobustness': 'SW_SECURE_CRYPTO'
+              }
+            }
+          }
+        });
+
+        player.getNetworkingEngine().registerRequestFilter(function(type, request) {
+          var StringUtils = shaka.util.StringUtils;
+          var Uint8ArrayUtils = shaka.util.Uint8ArrayUtils;
+          if (type == shaka.net.NetworkingEngine.RequestType.LICENSE) {
+            var rawLicenseRequest = new Uint8Array(request.body);
+
+            // Create the wrapped request structure.
+            var wrapped = {};
+
+            request.allowCrossSiteCredentials = true;
+
+            // Encode the raw license request in base64.
+            // The server we are using in this tutorial expects this field and this
+            // encoding for the raw request.
+            wrapped.payload = btoa(String.fromCharCode.apply(null, rawLicenseRequest));
+
+            // Add whatever else we want to communicate to the server.
+            // None of these values are read by the server we are using in this
+            // tutorial.
+            // In practice, you would send what the server needs and the server would
+            // react to it.
+
+            wrapped.content_id = 'undefined';
+            wrapped.ticket = window.drmTicket;
+
+            // Encode the wrapped request as JSON.
+            var wrappedJson = JSON.stringify(wrapped);
+            // Convert the JSON string back into an ArrayBuffer to replace the request
+            // body.
+            request.body = new Uint8Array(wrappedJson.length);
+            for (var i = 0; i < wrappedJson.length; ++i) {
+              request.body[i] = wrappedJson.charCodeAt(i);
+            }
+          }
+        });
+
+        player.getNetworkingEngine().registerResponseFilter(function(type, response) {
+          var StringUtils = shaka.util.StringUtils;
+          var Uint8ArrayUtils = shaka.util.Uint8ArrayUtils;
+          if (type == shaka.net.NetworkingEngine.RequestType.LICENSE) {
+            // this is the wrapped license.
+            var wrappedArray = new Uint8Array(response.data);
+            // convert it to a string.
+            var wrappedString = String.fromCharCode.apply(null, wrappedArray);
+            // parse the JSON string into an object.
+            var wrapped = JSON.parse(wrappedString);
+
+            // this is a base64-encoded version of the raw license.
+            var rawLicenseBase64 = wrapped.license;
+
+            // decode it to a string.
+            var rawLicenseString = atob(rawLicenseBase64);
+            // convert that string into a Uint8Array and replace the response data to feed it to the Widevine CDM.
+            response.data = new Uint8Array(rawLicenseString.length);
+            for (var i = 0; i < rawLicenseString.length; ++i) {
+              response.data[i] = rawLicenseString.charCodeAt(i);
+            }
+          }
+        });
+
+
+
+
+
+  // DRM player______________________________________________
+
+  player.load(manifestUri).then(function() {
+      // player.addTextTrack('http://localhost/movie.vtt','en','text','text/vtt');
+    console.log('The video has now been loaded!');
+    window.player = player;
+},(error) => {});
+
+
+}
+
+function onErrorEvent(event) {
+  onError(event.detail);
+}
+
+function onTrackChanged(event){
+ // alert("track changed!")
+}
+
+function onError(error) {
+  console.error('Error code', error.code, 'object', error);
+}
+
+initApp();
+</script>

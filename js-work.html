@@ -1,0 +1,30 @@
+<script>
+    const arr = [100,-30,0,-5,3,-5,7,2]
+    const info = [];
+    const length = arr.length - 1;
+    init();
+    function init() {
+        for (let i = length; i >= 0; i-- ) {
+            rangeWiseAddition(i);
+        }
+        calculation();
+    }
+    function rangeWiseAddition(len) {
+        let total = 0;
+        let obj = {};
+        for (let x = 0; x <= len; x++) {
+            total += arr[x];
+        }
+        obj.total = total;
+        obj.range = '0' + ' ' + 'to' + ' ' + len;
+        info.push(obj);
+    }
+
+    function calculation() {
+        var max = info.reduce(function (prev, current) {
+            return (prev.total > current.total) ? prev : current
+        });
+        console.log(max)
+    }
+
+</script>

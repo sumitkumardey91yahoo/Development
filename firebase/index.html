@@ -1,0 +1,54 @@
+
+<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBU5z4stnibUrXxX4rZSu0SLlHkFqxzV_4",
+    authDomain: "sumit-kumar-dey.firebaseapp.com",
+    databaseURL: "https://sumit-kumar-dey.firebaseio.com",
+    projectId: "sumit-kumar-dey",
+    storageBucket: "sumit-kumar-dey.appspot.com",
+    messagingSenderId: "23286178317"
+  };
+  firebase.initializeApp(config);
+
+   // var ref = firebase.database().ref('sumit-kumar-dey');
+
+//   ref.on("value", function(snapshot) {
+//    console.log(snapshot.val());
+// }, function (error) {
+//    console.log("Error: " + error.code);
+// });
+
+//console.log(ref);
+
+
+// const dbRef = firebase.database('https://sumit-kumar-dey.firebaseio.com/')
+// const usersRef = dbRef.child('sumit-kumar-dey');
+
+
+
+// dbRef.on("child_added", snap => {
+//    console.log(snap.val());
+   
+// });
+
+ // Create a connection to your Firebase database
+ var ref = new Firebase("https://sumit-kumar-dey.firebaseio.com/");
+        // Save data
+        // ref.set({
+        //     name: "Ranjit kumar",
+        //     city: "Gugraon",
+        //     position: "UI-Devloper"
+            
+        // });
+        // Listen for realtime changes
+        ref.on("value", function(data) {
+            var name = data.val().name;
+            
+            alert(name);
+        });
+
+
+</script>
+

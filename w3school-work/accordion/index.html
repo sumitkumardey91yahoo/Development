@@ -1,0 +1,55 @@
+<body>
+    <button class="accordion">Section 1</button>
+    <div class="panel active">
+    <p>Lorem ipsum...</p>
+    </div>
+
+    <button class="accordion">Section 2</button>
+    <div class="panel active">
+    <p>Lorem ipsum...</p>
+    </div>
+
+    <button class="accordion">Section 3</button>
+    <div class="panel active">
+    <p>Lorem ipsum...</p>
+    </div>
+</body>
+<head>
+<style>
+    button.accordion {
+    width: 100%;
+    height:10%;
+}
+.active {
+    display: inline;
+}
+.hide {
+    display: none;
+}
+</style>
+<script>
+    let buttons = document.querySelectorAll('.accordion');
+    for (let i = 0; i < buttons.length ; i++) {
+        let m = 0;
+        buttons[i].addEventListener('click',function() {
+            let sibling = buttons[i].nextElementSibling;
+            console.log("click",sibling);
+            console.log((sibling.classList));
+            
+            sibling.classList.forEach((data) => {
+               if (data == 'hide') {
+                    m++;
+                    buttons[i].nextElementSibling.classList.remove('hide');
+                    buttons[i].nextElementSibling.classList.add('active');
+                    return;
+               }
+            });
+            if (m == 0) {
+            buttons[i].nextElementSibling.classList.add('hide');
+            buttons[i].nextElementSibling.classList.remove('active');
+            }
+            m = 0
+        });
+    }
+</script>
+</head>

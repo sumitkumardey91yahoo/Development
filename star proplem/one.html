@@ -1,0 +1,33 @@
+<html>
+
+  <head>
+    <script type="text/javascript">
+      var mid = parseInt(9 / 2);
+      var m = mid;
+      // alert(mid)
+      for (var i = 0; i < 5; i++) {
+       let count = 0;
+        for (var j = 0; j < 9; j++) {
+         
+          if (j == m && count<=i) {
+            document.write('*');
+            count++;
+             m=m+2;
+          } else {
+            document.write('\xa0');
+          }
+        
+        
+        }
+          mid=mid-1;
+          m=mid;
+        document.write('<br />');
+      }
+
+    </script>
+  </head>
+
+  <body>
+  </body>
+
+</html>

@@ -1,0 +1,87 @@
+
+<script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+<script type="text/javascript">
+var remotePlayer;
+window['__onGCastApiAvailable'] = function(isAvailable) {
+    if (isAvailable) {
+        initializeCastApi();
+    }
+};
+
+function initializeCastApi () {
+let castOptions = {};
+castOptions.receiverApplicationId = "8644FA01";  // prod 5D2B6D18
+castOptions.autoJoinPolicy = chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED;
+cast.framework.CastContext.getInstance().setOptions(castOptions);
+
+remotePlayer = new cast.framework.RemotePlayer();
+let remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
+
+remotePlayerController.addEventListener(
+  cast.framework.RemotePlayerEventType.IS_CONNECTED_CHANGED,
+  () => {
+      handleCastConnectionEvent();
+  }
+);
+
+remotePlayerController.addEventListener(
+  cast.framework.RemotePlayerEventType.PLAYER_STATE_CHANGED,
+  (event) => {
+      if (event.value == null) {
+      console.log("test");
+      }
+  }
+);
+}
+
+function handleCastConnectionEvent() {
+    if (remotePlayer.isConnected == true) {
+        let castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+        console.log("remote Player on");
+         addContent(castSession);
+    } else {
+        castSession = null;
+        console.log("remote player off");
+    }
+}
+
+function addContent(castSession) {
+    let mediaInfo = new chrome.cast.media.MediaInfo("https://preprod-cdn.cloud.altbalaji.com/content/2016-04/383-571490856bba5/manifest.mpd","video/mp4");
+    console.log("castSession",castSession);
+
+    mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
+    mediaInfo.metadata.metadataType = chrome.cast.media.MetadataType.GENERIC;
+    mediaInfo.metadata.title = "Ding Dong Bell";
+    mediaInfo.metadata.subtitle = "An ALTBalaji Exclusive!";
+    mediaInfo.metadata.images = [{'url': 'https://preprod-cdn.cloud.altbalaji.com/thumbnails/2016-09/1474865575070800000_72.jpg'}];
+
+    let imageList = [];
+
+
+    mediaInfo.customData = {"typeofItem":"trailer", "deviceID":"", "episodeNumber":0, "mediaId":67, "baseURL" : "https://preprod-api.cloud.altbalaji.com/", "isSeries":false, "href":"show/67?domain=IN", "streamID": "19225","sessionToken":"","imageList":imageList};
+
+    let request = new chrome.cast.media.LoadRequest(mediaInfo);
+
+    request.currentTime = 0;
+    request.contentID = "https://preprod-cdn.cloud.altbalaji.com/content/2016-04/383-571490856bba5/manifest.mpd";
+    request.contentType="video/mp4";
+    request.streamType ="playready-dash";
+    request.streamDuration = 20;
+    request.mediaTracks = [];
+    request.textTrackStyle = '';
+    request.imageList = imageList;
+    request.totalDuration = 20;
+
+    let loadPromise = castSession.loadMedia(request);
+    console.log("request",request);
+
+    loadPromise.then(() => {
+        console.log('Cast content loaded');
+    }).catch((error) => {
+        console.log("loadMedia | error",error);
+    });
+
+}
+</script>
+
+<google-cast-launcher style="width:20px" class="header-ico-right"></google-cast-launcher>
