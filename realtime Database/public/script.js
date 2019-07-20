@@ -35,7 +35,7 @@ function parse(data) {
 
 function addData() {
 
-     console.log("length", length)
+    console.log("length", length)
     let city, name, age;
     city = document.getElementById("city").value;
     name = document.getElementById("name").value;
