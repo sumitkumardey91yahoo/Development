@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+  </head>
+  <body class="container">
+  <div id="object"></div>
+  <hr>
+  <fieldset>
+  <legend>Adding Data:</legend>
+      <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="city">City:</label>
+      <input type="text" class="form-control" id="city">
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="text" class="form-control" id="age">
+    </div>
+
+      <input type='button' id='btn' value='Click' onclick="addData()" class="btn btn-success"/>
+</fieldset>
+</body>
+    <script src="./script.js" charset="utf-8"></script>
+</html>

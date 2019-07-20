@@ -12,16 +12,6 @@ var filesToCache = [
 // fetch
 
 
-// self.addEventListener('install', (event) => {
-//   self.skipWaiting();
-//   event.waitUntil(
-//     caches.open(cacheName).then((cache) => {
-//       return cache.addAll(filesToCache);
-//     })
-//   );
-// });
-
-
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(cacheName).then((cache) => {

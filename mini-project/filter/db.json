@@ -1,0 +1,41 @@
+{
+ "persons": [
+   {
+     "name": "sumit",
+      "age": 27,
+      "education": "mca",
+      "size": 30
+   },
+   {
+     "name": "raj",
+      "age": 20,
+      "education": "bca",
+      "size": 22
+   },
+   {
+     "name": "ajay",
+      "age": 20,
+      "education": "btech",
+      "size": 29
+   },
+   {
+     "name": "shayam",
+      "age": 19,
+      "education": "ba",
+      "size": 22
+   },
+   {
+     "name": "prit",
+      "age": 19,
+      "education": "ba",
+      "size": 29
+   },
+   {
+     "name": "puja",
+      "age": 19,
+      "education": "ba",
+      "size": 30
+   }
+
+ ]
+}

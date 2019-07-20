@@ -1,25 +1,26 @@
 
 class Animal {
-    constructor() {
-        console.log("Animal")
+    constructor(dara) {
+        //console.log("Animal", dara)
     }
 
     leg() {
-        console.log("four")
+        //console.log("four")
     }
 }
 
 class Dog extends Animal {
     constructor() {
-        console.log("Dog");
-        this.init()
+      super("i am");
+      //  console.log("Dog");
+      //  this.init()
     }
 
-    init(){
-        super();
-    }
+    // init(){
+    //     super();
+    // }
 }
 
 
 
-new Dog().leg();
+//console.log(new Dog().leg());

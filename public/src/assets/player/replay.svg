@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 230 230" style="enable-background:new 0 0 230 230;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.1;}
+	.st1{fill:url(#SVGID_1_);}
+	.st2{fill:#FFFFFF;}
+</style>
+<title>play</title>
+<g>
+	<g id="Layer_2_1_">
+		<g id="_3">
+			
+				<image style="overflow:visible;opacity:0.45;enable-background:new    ;" width="230" height="230" xlink:href="7C5A68512F0121E3.png" >
+			</image>
+			<g class="st0">
+				
+					<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="44.2893" y1="187.7107" x2="185.7107" y2="46.2893" gradientTransform="matrix(1 0 0 -1 0 232)">
+					<stop  offset="0" style="stop-color:#FFFFFF"/>
+					<stop  offset="1" style="stop-color:#000000"/>
+				</linearGradient>
+				<circle class="st1" cx="115" cy="115" r="100"/>
+			</g>
+			<path class="st2" d="M115,25c49.7,0,90,40.3,90,90s-40.3,90-90,90s-90-40.3-90-90C25.1,65.3,65.3,25.1,115,25 M115,15
+				C59.8,15,15,59.8,15,115s44.8,100,100,100s100-44.8,100-100S170.2,15,115,15z"/>
+		</g>
+	</g>
+</g>
+<g>
+	
+		<image style="overflow:visible;opacity:0.75;" width="88" height="101" xlink:href="7C5A68512F0121E1.png"  transform="matrix(1 0 0 1 71 62)">
+	</image>
+	<g>
+		<g>
+			<g>
+				<g id="replay_9_">
+					<path class="st2" d="M115,91.1V77L97.4,94.6l17.6,17.6V98.2c11.6,0,21.1,9.5,21.1,21.1s-9.5,21.1-21.1,21.1
+						s-21.1-9.5-21.1-21.1h-7c0,15.5,12.7,28.2,28.2,28.2s28.2-12.7,28.2-28.2S130.5,91.1,115,91.1z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

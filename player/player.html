@@ -1,13 +1,10 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.4/shaka-player.compiled.js"></script>
 <video id="video"
-        height=640
-
-         poster="//shaka-player-demo.appspot.com/assets/poster.jpg"
-         controls>
- <track label="English" kind="subtitles" id="myImg" srclang="en" src="http://localhost/movie.vtt" default>
-
-     </video>
+       height=640
+       poster="//shaka-player-demo.appspot.com/assets/poster.jpg"
+       controls>
+</video>
 
 <button onclick="jump(60)"> Jump to 60</button>
 <button onclick="jump(0)"> Jump to 0</button>
@@ -22,9 +19,7 @@
 
 
 <script>
- // var manifestUri = 'https://cdn.cloud.altbalaji.com/content/2018-06/4564-5b3631b112a93/manifest.mpd';
-    var manifestUri = 'https://cdn.cloud.altbalaji.com/content/2018-06/4539-5b29099348f8b/manifest.m3u8';
-  // var manifestUri = 'https://storage.googleapis.com/lao-permanent_content/2018-04-20-13-40-31/Manifest.mpd'
+  var manifestUri = 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd'
    var video = document.getElementById('video');
 
    function play() {
@@ -36,7 +31,7 @@
 
    }
    function next() {
-       manifestUri = 'https://cdn.cloud.altbalaji.com/content/2017-04/2112-58f0d559d77bd/manifest.mpd';
+
        player.load(manifestUri).then(function() {
          console.log('The video has now been loaded!');
          window.player = player;
